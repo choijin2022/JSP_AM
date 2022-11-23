@@ -19,5 +19,8 @@ Map<String, Object> articleRow = (Map<String, Object>)request.getAttribute("arti
 	<div>제목 : <%= (String)articleRow.get("title") %></div>
 	<div>내용 : <%= (String)articleRow.get("body") %></div>
 	<div><a href="list">목록</a></div>
+	<a href="modify?id=<%= (int)articleRow.get("id") %>">수정</a>
+	<a href="doDelete?id=<%= (int)articleRow.get("id") %>">삭제</a>
+	
 </body>
 </html>
