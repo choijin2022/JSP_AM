@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.KoreaIT.java.am.exception.SQLErrorException;
 import com.KoreaIT.java.am.util.DBUtil;
 import com.KoreaIT.java.am.util.SecSql;
 
@@ -45,7 +46,9 @@ public class ArticleDoDeleteServlet extends HttpServlet {
 
 		} catch (SQLException e) {
 			System.out.println("에러: " + e);
-		} finally {
+		} catch(SQLErrorException e) {
+			e.getOrigin().printStackTrace();
+		}finally {
 			try {
 				if (conn != null && !conn.isClosed()) {
 					conn.close();

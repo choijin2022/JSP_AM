@@ -54,11 +54,17 @@ int totalPage = (int) request.getAttribute("totalPage");
 }
 </style>
 
-	<div class="page">
-	<%if(cPage>1){ %>
-	<a href="list?page=1">◁</a>
 	
-	<%} %>
+	
+	<div class="page">
+		<%
+		if (cPage > 1) {
+		%>
+		<a href="list?page=1">◁</a>
+
+		<%
+		}
+		%>
 		<!--  -->
 		<%
 		int from = cPage - 10;
@@ -76,8 +82,8 @@ int totalPage = (int) request.getAttribute("totalPage");
 		<%
 		}
 		%>
-		
-		<a href="list?page=<%= totalPage%>">▷</a>
+
+		<a href="list?page=<%=totalPage%>">▷</a>
 	</div>
 
 </body>
