@@ -32,23 +32,33 @@ public class MemberDoJoinServlet extends HttpServlet {
 			System.out.println("드라이버 로딩 실패");
 		}
 
-		String url = Config.getDBUrl();
+		
 
 		try {
-			conn = DriverManager.getConnection(url, Config.getDBUser(), Config.getDBPassword());
+			conn = DriverManager.getConnection(Config.getDBUrl(), Config.getDBUser(), Config.getDBPassword());
 			
+
 			
 			String loginId = request.getParameter("loginId"); 
 			String loginPw = request.getParameter("loginPw"); 
 			String userName = request.getParameter("userName"); 
 			
-			SecSql sql = SecSql.from("INSERT INTO `member`");
+			SecSql sql = SecSql.from("SELECT COUNT(loginId)");
+			sql.append("FROM `member`");
+			sql.append("WHERE loginId = ?",loginId);
+			
+			boolean isJoinAvailableLoginId=DBUtil.selectRowBooleanValue(conn, sql)  ;
+			
+			if(isJoinAvailableLoginId==false) {
+				response.getWriter().append(String.format("<script>alert('존재하는 아이디입니다.'); location.replace('../home/main');</script>"));
+			}
+			
+			sql = SecSql.from("INSERT INTO `member`");
 			sql.append("SET regDate = NOW()");
 			sql.append(",loginId =  ?",loginId);
 			sql.append(",loginPw =  ?",loginPw);
 			sql.append(", userName = ?",userName);
-		
-
+			
 			
 			int id = DBUtil.insert(conn, sql);
 
