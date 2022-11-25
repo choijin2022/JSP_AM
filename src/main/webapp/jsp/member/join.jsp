@@ -58,7 +58,7 @@
 	<form action="doJoin" method="POST"
 		onsubmit="JoinForm_submit(this); return false;">
 		<div>
-			아이디 : <input name="loginId" placeholer="아이디를 입력하세요" type="text" />
+			아이디 : <input name="loginId" autocomplete="off" placeholer="아이디를 입력하세요" type="text" />
 		</div>
 		<div>
 			비밀번호 : <input name="loginPw" placeholer="비밀번호를 입력해주세요"
